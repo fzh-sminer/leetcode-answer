@@ -34,7 +34,7 @@ package daily;
  * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  */
 
-public class DAY20210209992 {
+public class DAY202102090992 {
 
     public int subarraysWithKDistinct(int[] A, int K) {
         return atMostKDistinct(A, K) - atMostKDistinct(A, K - 1);
@@ -74,6 +74,6 @@ public class DAY20210209992 {
         int[] A = new int[] {1,2,1,2,3};
         int k = 2;
 
-        System.out.println(new DAY20210209992().subarraysWithKDistinct(A, k));
+        System.out.println(new DAY202102090992().subarraysWithKDistinct(A, k));
     }
 }
