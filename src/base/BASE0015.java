@@ -34,13 +34,17 @@ import java.util.List;
 public class BASE0015 {
 
     public List<List<Integer>> threeSum(int[] nums) {
+        return second(nums);
+    }
+
+    public List<List<Integer>> first(int[] nums) {
         List<List<Integer>>  lists = new ArrayList<>();
         int len = nums.length;
         if (len < 3) {
             return lists;
         }
         Arrays.sort(nums);
-        if (nums[0] >= 0 || nums[len - 1] <= 0) {
+        if (nums[0] > 0 || nums[len - 1] < 0) {
             return lists;
         }
 
@@ -63,7 +67,7 @@ public class BASE0015 {
                 }
 
                 // 枚举 c
-                while (second < third && nums[second] + nums[target] > target) {
+                while (second < third && nums[second] + nums[third] > target) {
                     third--;
                 }
 
@@ -71,7 +75,7 @@ public class BASE0015 {
                     break;
                 }
 
-                if (nums[second] + nums[target] == target) {
+                if (nums[second] + nums[third] == target) {
                     List<Integer> list = new ArrayList<Integer>();
                     list.add(nums[first]);
                     list.add(nums[second]);
@@ -84,7 +88,51 @@ public class BASE0015 {
         return lists;
     }
 
+
+    public List<List<Integer>> second(int[] nums) {
+        List<List<Integer>> list = new ArrayList<>();
+        Arrays.sort(nums);
+        int len = nums.length;
+
+        if (len < 3) {
+            return list;
+        }
+        if (nums[0] > 0 || nums[len - 1] < 0) {
+            return list;
+        }
+
+        for (int first = 0; first < len - 2; first ++) {
+            if (nums[first] > 0) {
+                break;
+            }
+            if (first > 0 && nums[first] == nums[first - 1]) {
+                continue;
+            }
+
+            int second = first + 1, third = len - 1;
+            int target = -nums[first];
+
+            while (second < third) {
+                if (nums[second] + nums[third] == target) {
+                    list.add(Arrays.asList(nums[first], nums[second++], nums[third--]));
+                    while (second < third && nums[second] == nums[second - 1]) {
+                        second++;
+                    }
+                    while (second < third && nums[third] == nums[third + 1]) {
+                        third--;
+                    }
+                } else if (nums[second] + nums[third] < target) {
+                    second++;
+                } else {
+                    third--;
+                }
+            }
+        }
+
+        return list;
+    }
+
     public static void main(String[] args) {
-        System.out.println(new BASE0015().threeSum(new int[] {-1,0,1,2,-1,-4}));
+        System.out.println(new BASE0015().threeSum(new int[] {0,0,0}));
     }
 }
